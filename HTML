@@ -1,0 +1,1903 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> أسس القيادة - د/ ثريا محمد الربيعان</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Load Noto Sans Arabic for better Arabic typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Apply Noto Sans Arabic font globally */
+        body {
+            font-family: 'Noto Sans Arabic', sans-serif;
+            background-color: #f0f7ff; /* Light blue background */
+        }
+        
+        /* Sidebar styles */
+        .sidebar {
+            background: linear-gradient(180deg, #1e40af 0%, #3b82f6 100%);
+            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100vh;
+            width: 280px;
+            z-index: 50;
+            overflow-y: auto;
+            color: white; /* Ensure text is white */
+        }
+        
+        .sidebar-item {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            color: white; /* Explicitly set link color */
+        }
+        
+        .sidebar-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateX(-5px);
+        }
+        
+        .sidebar-item.active {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-right: 4px solid #fff;
+        }
+        
+        .sidebar-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: right 0.5s;
+        }
+        
+        .sidebar-item:hover::before {
+            right: 100%;
+        }
+        
+        /* Main content area */
+        .main-content {
+            background-color: #f8fafc;
+            min-height: 100vh;
+            overflow-y: auto;
+            margin-right: 280px;
+            transition: margin-right 0.3s ease;
+        }
+        
+        /* Card styles */
+        .dashboard-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            color: white;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-header::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: -20px;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+        
+        .card-header::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+        
+        /* Table styles */
+        .dashboard-table {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .dashboard-table th {
+            background-color: #dbeafe;
+            color: #1e40af;
+            font-weight: 600;
+            padding: 12px;
+            text-align: right;
+        }
+        
+        .dashboard-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .dashboard-table tr:hover {
+            background-color: #f0f7ff;
+        }
+        
+        /* Activity card styles */
+        .activity-card {
+            background: linear-gradient(135deg, #eff6ff, #dbeafe);
+            border-right: 4px solid #3b82f6;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .activity-card:hover {
+            transform: translateX(-5px);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
+        }
+        
+        /* Feature box styles */
+        .feature-box {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-box:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.1);
+        }
+        
+        /* Icon styles */
+        .icon-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+        }
+        
+        /* Timeline styles */
+        .timeline-item {
+            position: relative;
+            padding-right: 30px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #3b82f6;
+            border: 3px solid #dbeafe;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            right: 5px;
+            top: 20px;
+            width: 2px;
+            height: calc(100% + 10px);
+            background-color: #dbeafe;
+        }
+        
+        .timeline-item:last-child::after {
+            display: none;
+        }
+        
+        /* Scrollbar styles */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1e40af;
+        }
+        
+        /* Mobile sidebar toggle */
+        .sidebar-toggle {
+            position: fixed;
+            top: 20px;
+            right: 300px;
+            z-index: 60;
+            background-color: #3b82f6;
+            color: white;
+            border-radius: 8px;
+            padding: 8px 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-toggle:hover {
+            background-color: #1e40af;
+        }
+        
+        /* Responsive sidebar */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 240px;
+            }
+            
+            .main-content {
+                margin-right: 240px;
+            }
+            
+            .sidebar-toggle {
+                right: 260px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(100%);
+                width: 280px;
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-right: 0;
+            }
+            
+            .sidebar-toggle {
+                right: 20px;
+                display: block;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .sidebar-toggle {
+                display: none;
+            }
+        }
+        
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .slide-in {
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+        
+        /* Sidebar overlay for mobile */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 40;
+            display: none;
+        }
+        
+        .sidebar-overlay.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="flex">
+    <!-- Sidebar Overlay for mobile -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="p-6">
+            <div class="mb-8 text-white">
+                <h2 class="text-2xl font-bold text-center mb-2">أسس القيادة</h2>
+                <p class="text-sm text-center opacity-80">د/ ثريا محمد الربيعان</p>
+            </div>
+            
+            <nav>
+                <ul class="space-y-2">
+                    <li>
+                        <a href="#introduction" class="sidebar-item block px-4 py-3 rounded-lg">
+                            <i class="fas fa-book-open ml-2"></i>
+                            المقدمة
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#index" class="sidebar-item block px-4 py-3 rounded-lg">
+                            <i class="fas fa-list-ol ml-2"></i>
+                            الفهرس
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#guide" class="sidebar-item block px-4 py-3 rounded-lg">
+                            <i class="fas fa-clipboard-list ml-2"></i>
+                            دليل البرنامج التدريبي
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#instructions" class="sidebar-item block px-4 py-3 rounded-lg">
+                            <i class="fas fa-chalkboard-teacher ml-2"></i>
+                            إرشادات المدرب
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#plan" class="sidebar-item block px-4 py-3 rounded-lg">
+                            <i class="fas fa-calendar-alt ml-2"></i>
+                            خطة البرنامج التدريبي
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#session1" class="sidebar-item block px-4 py-3 rounded-lg active">
+                            <i class="fas fa-book ml-2"></i>
+                            الجلسة التدريبية الأولى
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#session2" class="sidebar-item block px-4 py-3 rounded-lg">
+                            <i class="fas fa-user-graduate ml-2"></i>
+                            الجلسة التدريبية الثانية
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="mt-8 pt-8 border-t border-white border-opacity-20">
+                <div class="bg-white bg-opacity-10 rounded-lg p-4">
+                    <p class="text-xs text-center opacity-70 mb-2">
+                        <i class="fas fa-copyright ml-1"></i>
+                        جميع الحقوق محفوظة
+                    </p>
+                    <p class="text-xs text-center opacity-70">
+                        <i class="fas fa-calendar ml-1"></i>
+                        د/ ثريا محمد الربيعان
+                    </p>
+                </div>
+            </div>
+        </div>
+    </aside>
+    
+    <!-- Mobile sidebar toggle -->
+    <button class="sidebar-toggle" id="sidebarToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <!-- Main content -->
+    <main class="main-content p-4 md:p-8">
+        <!-- Header -->
+        <header class="dashboard-card mb-6 fade-in">
+            <div class="card-header">
+                <h1 class="text-3xl font-bold">  أسس القيادة</h1>
+                <p class="text-lg opacity-90">د/ ثريا محمد الربيعان</p>
+            </div>
+            <div class="p-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="text-center p-4 bg-blue-50 rounded-lg">
+                        <div class="icon-circle mx-auto mb-2">
+                            <i class="fas fa-calendar-day"></i>
+                        </div>
+                        <p class="font-bold text-blue-600">المدة التدريبية</p>
+                        <p class="text-gray-700">يوم تدريبي</p>
+                        <p class="text-gray-700">4 ساعات تدريبية</p>
+                    </div>
+                    <div class="text-center p-4 bg-blue-50 rounded-lg">
+                        <div class="icon-circle mx-auto mb-2">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <p class="font-bold text-blue-600">الفئة المستهدفة</p>
+                        <p class="text-gray-700">...</p>
+                    </div>
+                    <div class="text-center p-4 bg-blue-50 rounded-lg">
+                        <div class="icon-circle mx-auto mb-2">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <p class="font-bold text-blue-600">عدد الجلسات</p>
+                        <p class="text-gray-700">جلستان تدريبيتان</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- المقدمة -->
+        <section id="introduction" class="dashboard-card mb-6 fade-in">
+            <div class="card-header">
+                <h2 class="text-2xl font-bold flex items-center">
+                    <i class="fas fa-book-open ml-3"></i>
+                    المقدمة
+                </h2>
+            </div>
+            <div class="p-6">
+                <div class="space-y-4 text-gray-700 leading-relaxed">
+                    <p class="flex items-start">
+                        <i class="fas fa-quote-right text-blue-500 ml-2 mt-1"></i>
+                        <span>في هذه الدورة التدريبية الهامة التي ندرك تمامًا أنها تمثل خطوة مصيرية نحو بناء فصل جديد ومشرق في حياتكم.</span>
+                    </p>
+                    <p class="flex items-start">
+                        <i class="fas fa-quote-right text-blue-500 ml-2 mt-1"></i>
+                        <span>القيادة ليست مقتصرة على المناصب الإدارية العليا؛ بل هي في جوهرها القدرة على قيادة الذات أولاً، واتخاذ القرارات الصحيحة، والتأثير الإيجابي في المحيطين بكم.</span>
+                    </p>
+                    <p class="flex items-start">
+                        <i class="fas fa-quote-right text-blue-500 ml-2 mt-1"></i>
+                        <span>لقد اخترتم اليوم مسار الانطلاقة والتغيير، ودورنا هو تزويدكم بالأدوات الأساسية التي تمكنكم من تحقيق ثلاثة أهداف رئيسية: قيادة حياتكم الشخصية عبر استعادة الثقة وتحديد الأهداف بوضوح، قيادة دوركم الأسري والاجتماعي من خلال تطوير مهارات الاتصال لبناء جسور الثقة والاندماج، وقيادة مستقبلكم المهني للانتقال من مرحلة الرعاية إلى مرحلة التنمية والإنتاج.</span>
+                    </p>
+                    <div class="bg-blue-50 p-4 rounded-lg border-r-4 border-blue-500 mt-4">
+                        <p class="text-lg font-semibold text-blue-700">
+                            <i class="fas fa-lightbulb ml-2"></i>
+                            فهذه الدورة هي بوابتكم لاكتشاف القائد الكامن بداخلكم، الذي سيقودكم نحو الحرية والاستدامة. لننطلق معاً في هذه الرحلة!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- الفهرس -->
+        <section id="index" class="dashboard-card mb-6 fade-in">
+            <div class="card-header">
+                <h2 class="text-2xl font-bold flex items-center">
+                    <i class="fas fa-list-ol ml-3"></i>
+                    الفهرس
+                </h2>
+            </div>
+            <div class="p-6">
+                <div class="dashboard-table overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr>
+                                <th>م</th>
+                                <th>المحتويات</th>
+                                <th>رقم الصفحة</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>1</td><td>تمهيد</td><td>2</td></tr>
+                            <tr><td>2</td><td>دليل البرنامج التدريبي</td><td>4</td></tr>
+                            <tr><td>3</td><td>إرشادات المدرب</td><td>5 – 6</td></tr>
+                            <tr><td>4</td><td>خطة البرنامج التدريبي</td><td>7 – 8</td></tr>
+                            <tr><td>5</td><td>دليل الجلسة التدريبية الأولى</td><td>9 – 11</td></tr>
+                            <tr><td>6</td><td>محتويات الجلسة التدريبية الأولى</td><td>12- 27</td></tr>
+                            <tr><td>7</td><td>دليل الجلسة التدريبية الثانية</td><td>28 -29</td></tr>
+                            <tr><td>8</td><td>محتويات الجلسة التدريبية الثانية</td><td>30 -50</td></tr>
+                            <tr><td>9</td><td>المراجع</td><td>51</td></tr>
+                            <tr><td>10</td><td>تقييم الحقيبة</td><td>53</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="mt-3 text-sm text-gray-500">
+                    <i class="fas fa-file-export ml-1"></i>
+                    التصدير إلى "جداول بيانات Google"
+                </p>
+            </div>
+        </section>
+        
+        <!-- دليل البرنامج التدريبي -->
+        <section id="guide" class="dashboard-card mb-6 fade-in">
+            <div class="card-header">
+                <h2 class="text-2xl font-bold flex items-center">
+                    <i class="fas fa-clipboard-list ml-3"></i>
+                    دليل البرنامج التدريبي
+                </h2>
+            </div>
+            <div class="p-6">
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold text-blue-700 mb-3">
+                        <i class="fas fa-bullseye ml-2"></i>
+                        الأهداف العامة للبرنامج التدريبي
+                    </h3>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <p class="font-semibold mb-2">يهدف البرنامج التدريبي إلى أن:</p>
+                        <ul class="list-disc list-inside pr-5 space-y-1">
+                            <li>تنمية مهارات القيادة الفعالة لدى المتدربين بكفاءة عالية.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold text-blue-700 mb-3">
+                        <i class="fas fa-tasks ml-2"></i>
+                        الأهداف التفصيلية للبرنامج التدريبي
+                    </h3>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <p class="font-semibold mb-2">في نهاية البرنامج التدريبي يجب على المتدرب أن:</p>
+                        <ul class="list-disc list-inside pr-5 space-y-1">
+                            <li>يحدد يحدد مفهوم القيادة</li>
+                            <li>يناقش خصائص القيادة</li>
+                            <li>يقدر أهمية القيادة</li>
+                            <li>يوضح أسس القيادة الفعالة</li>
+                            <li>يطبق صياغة الرؤية والقيم الشخصية للمستقبل</li>
+                            <li>يتعرف على كيف اكون شخص قيادي بحياتي؟</li>
+                            <li>يطبق المهارات الشخصية القيادية</li>
+                            <li>يوضح نشاطات يومية تساعد على القيادة</li>
+                            <li>يناقش تقنيات قيادة السمعة الشخصية (Personal Brand)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-4 rounded-lg">
+                        <p class="font-bold mb-2">
+                            <i class="fas fa-users ml-1"></i>
+                            الفئة المستهدَفة:
+                        </p>
+                        <p>...</p>
+                    </div>
+                    <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-4 rounded-lg">
+                        <p class="font-bold mb-2">
+                            <i class="fas fa-clock ml-1"></i>
+                            المدة التدريبية:
+                        </p>
+                        <p>يوم تدريبي.</p>
+                        <p>4 ساعات تدريبية.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- إرشادات المدرب -->
+        <section id="instructions" class="dashboard-card mb-6 fade-in">
+            <div class="card-header">
+                <h2 class="text-2xl font-bold flex items-center">
+                    <i class="fas fa-chalkboard-teacher ml-3"></i>
+                    إرشادات المدرب
+                </h2>
+            </div>
+            <div class="p-6">
+                <div class="mb-6">
+                    <p class="text-gray-700 font-semibold mb-3">
+                        <i class="fas fa-info-circle text-blue-500 ml-1"></i>
+                        أخي المدرب: من منطلق حرصنا على بلوغ أهداف التدريب، نأمل منكِ القيام بما يأتي:
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="feature-box">
+                            <p class="font-semibold text-blue-700">
+                                <i class="fas fa-check-circle ml-1"></i>
+                                التأكد من توافر المواد اللازمة
+                            </p>
+                        </div>
+                        <div class="feature-box">
+                            <p class="font-semibold text-blue-700">
+                                <i class="fas fa-check-circle ml-1"></i>
+                                توزيع المجموعات بشكل متوازن
+                            </p>
+                        </div>
+                        <div class="feature-box">
+                            <p class="font-semibold text-blue-700">
+                                <i class="fas fa-check-circle ml-1"></i>
+                                استخدام الأساليب التدريبية المناسبة
+                            </p>
+                        </div>
+                        <div class="feature-box">
+                            <p class="font-semibold text-blue-700">
+                                <i class="fas fa-check-circle ml-1"></i>
+                                عرض الإجابات بشكل واضح
+                            </p>
+                        </div>
+                        <div class="feature-box">
+                            <p class="font-semibold text-blue-700">
+                                <i class="fas fa-check-circle ml-1"></i>
+                                المتابعة والإشراف على الأنشطة
+                            </p>
+                        </div>
+                        <div class="feature-box">
+                            <p class="font-semibold text-blue-700">
+                                <i class="fas fa-check-circle ml-1"></i>
+                                ضمان مشاركة جميع الأفراد
+                            </p>
+                        </div>
+                        <div class="feature-box">
+                            <p class="font-semibold text-blue-700">
+                                <i class="fas fa-check-circle ml-1"></i>
+                                مراعاة مستوى المتدربين
+                            </p>
+                        </div>
+                        <div class="feature-box">
+                            <p class="font-semibold text-blue-700">
+                                <i class="fas fa-check-circle ml-1"></i>
+                                التأكيد على تعبئة نموذج التقييم
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 class="text-xl font-bold text-blue-700 mb-3">
+                    <i class="fas fa-tasks ml-2"></i>
+                    ثم عليك تنفيذ الآتي:
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+                        <p class="font-bold text-lg text-yellow-700 mb-2">
+                            <i class="fas fa-hourglass-start ml-1"></i>
+                            قبلَ تنفيذ التدريب:
+                        </p>
+                        <ul class="list-disc list-inside space-y-1 pr-5 text-gray-600 text-sm">
+                            <li>الاطِّلاع الجيد والمراجعة الدقيقة للمادة التدريبية.</li>
+                            <li>مراعاة الزمن بدقة والحرص على استثمار الوقت وفق الخطة الموضوعة.</li>
+                            <li>استيعاب الأنشطة المُعَدَّة لكل جلسة تدريبية.</li>
+                            <li>فهم الإعداد الجيد للمادة التدريبية.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                        <p class="font-bold text-lg text-green-700 mb-2">
+                            <i class="fas fa-play-circle ml-1"></i>
+                            أثناء تنفيذ التدريب:
+                        </p>
+                        <ul class="list-disc list-inside space-y-1 pr-5 text-gray-600 text-sm">
+                            <li>التهيئة لموضوع الجلسة التدريبية.</li>
+                            <li>استكشاف الخبرات السابقة للمتدربين عن موضوع الجلسة التدريبية.</li>
+                            <li>استيعاب الأنشطة المُعَدَّة لكل جلسة تدريبية.</li>
+                            <li>مراعاة التقيُّد بالأهداف الخاصة والإجرائية والأنشطة المحقِّقة لها.</li>
+                            <li>تدوين الملحوظات على الحقيبة من خلال أدوات التقويم المصاحبة للاستفادة منها في تطوير البرنامج والحقيبة التدريبية.</li>
+                            <li>تشكيل المجموعات بشكل عشوائي بعد كل جلسة تدريبية يسهم في الحفاظ على حيوية المتدربين والاستفادة من خبرات متنوعة.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- خطة البرنامج التدريبي -->
+        <section id="plan" class="dashboard-card mb-6 fade-in">
+            <div class="card-header">
+                <h2 class="text-2xl font-bold flex items-center">
+                    <i class="fas fa-calendar-alt ml-3"></i>
+                    خطة البرنامج التدريبي
+                </h2>
+            </div>
+            <div class="p-6">
+                <p class="text-gray-600 mb-3">
+                    <i class="fas fa-lightbulb text-blue-500 ml-1"></i>
+                    يستخدم هذا البرنامج الأساليب والأنشطة التدريبية التالية:
+                </p>
+                <h3 class="text-xl font-semibold text-gray-700 mt-4 mb-2">
+                    <i class="fas fa-tools text-blue-500 ml-1"></i>
+                    الوسائل التدريبية:
+                </h3>
+                <p class="text-gray-600 mb-4">يتطلب هذا البرنامج توفير الوسائل والمواد التدريبية التالية:</p>
+
+                <h3 class="text-xl font-semibold text-gray-700 mb-2">
+                    <i class="fas fa-table text-blue-500 ml-1"></i>
+                    خطة البرنامج التدريبي
+                </h3>
+                <div class="dashboard-table overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr>
+                                <th>اليوم</th>
+                                <th>الجلسة</th>
+                                <th>الزمن</th>
+                                <th>الموضوع</th>
+                                <th>الهدف</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>اليوم التدريبي</td>
+                                <td>الأول</td>
+                                <td>120 د</td>
+                                <td>مفهوم القيادة في القرن الواحد والعشرين</td>
+                                <td>يحدد المتدربون مفهوم القيادة.</td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" class="text-center bg-blue-100 font-bold">
+                                    <i class="fas fa-coffee ml-1"></i>
+                                    راحة 20 دقيقة
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>اليوم التدريبي</td>
+                                <td>الثانية</td>
+                                <td>120 د</td>
+                                <td>جدارات القائد ومهاراته</td>
+                                <td>يتعرف المتدربون على جدارات القيادة الحديثة وأهم الاسترتيجيات والنظريات في مجال القيادة</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="mt-3 text-sm text-gray-500">
+                    <i class="fas fa-file-export ml-1"></i>
+                    التصدير إلى "جداول بيانات Google"
+                </p>
+            </div>
+        </section>
+        
+        <!-- محتويات الجلسة التدريبية الأولى -->
+        <section id="session1" class="dashboard-card mb-6 fade-in">
+            <div class="card-header">
+                <h2 class="text-2xl font-bold flex items-center">
+                    <i class="fas fa-book ml-3"></i>
+                    الجلسة التدريبية الأولى
+                </h2>
+            </div>
+            <div class="p-6">
+                <p class="text-xl font-semibold text-blue-600 mb-4">
+                    <i class="fas fa-brain ml-1"></i>
+                    مفهوم القيادة والوعي بالذات
+                </p>
+
+                <div class="mb-6">
+                    <h3 class="text-lg font-bold text-gray-700 mb-2">
+                        <i class="fas fa-bullseye text-blue-500 ml-1"></i>
+                        الأهداف الإجرائية للجلسة التدريبية:
+                    </h3>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <ul class="list-disc list-inside space-y-1 pr-5 text-gray-600">
+                            <li>يحدد مفهوم القيادة</li>
+                            <li>يناقش خصائص القيادة</li>
+                            <li>يقدر أهمية القيادة</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="text-lg font-bold text-gray-700 mb-2">
+                        <i class="fas fa-clipboard-check text-blue-500 ml-1"></i>
+                        متطلبات الجلسة:
+                    </h3>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <ul class="list-disc list-inside space-y-1 pr-5 text-gray-600">
+                            <li>أوراق عمل لتنفيذ النشاطات.</li>
+                            <li>أقلام للكتابة.</li>
+                            <li>سبورة ورقية وأقلام للكتابة عليها.</li>
+                            <li>جهاز عرض البيانات (Data Show).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="text-lg font-bold text-gray-700 mb-2">
+                        <i class="fas fa-chalkboard text-blue-500 ml-1"></i>
+                        جدول الأساليب والأنشطة والوسائل التدريبية:
+                    </h3>
+                    <div class="dashboard-table overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr>
+                                    <th>م</th>
+                                    <th>الأساليب والأنشطة التدريبية</th>
+                                    <th>الوسائل التدريبية</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>1</td><td>فيديو تدريبي</td><td>جهاز عرض فوق الرأس، فيديو</td></tr>
+                                <tr><td>2</td><td>نشاط (1/1/1)</td><td>أوراق، بطاقات ملونة</td></tr>
+                                <tr><td>3</td><td>المادة العلمية</td><td>جهاز عرض، بوربوينت</td></tr>
+                                <tr><td>4</td><td>نشاط (2/1/1)</td><td>أوراق، بطاقات ملونة، أقلام</td></tr>
+                                <tr><td>5</td><td>المادة العلمية</td><td>جهاز عرض، بوربوينت</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="mt-3 text-sm text-gray-500">
+                        <i class="fas fa-file-export ml-1"></i>
+                        التصدير إلى "جداول بيانات Google"
+                    </p>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="text-lg font-bold text-gray-700 mb-2">
+                        <i class="fas fa-clock text-blue-500 ml-1"></i>
+                        خطة الجلسة التدريبية الأولى:
+                    </h3>
+                    <div class="dashboard-table overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr>
+                                    <th>الموضوع / النشاط</th>
+                                    <th>الزمن بالدقيقة</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>تعارف وافتتاح البرنامج.</td><td>10دقائق</td></tr>
+                                <tr><td>فيديوتدريبي.</td><td>10دقائق</td></tr>
+                                <tr><td>نشاط 1-1-1.</td><td>15دقيقة</td></tr>
+                                <tr><td>مفهوم القيادة</td><td>10دقائق</td></tr>
+                                <tr><td>خصائص القيادة الفعالة</td><td>15دقيقة</td></tr>
+                                <tr><td>أهمية القيادة الفعالة</td><td>15 دقيقة</td></tr>
+                                <tr><td>أسس القيادة الفعالة</td><td>15دقيقة</td></tr>
+                                <tr><td>نشاط 2-1-1.</td><td>15دقيقة</td></tr>
+                                <tr><td>صياغة الرؤية والقيم الشخصية للمستقبل</td><td>15دقيقة</td></tr>
+                                <tr><td>مجموع التوقيت الزمني</td><td>120 دقيقة</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="mt-3 text-sm text-gray-500">
+                        <i class="fas fa-file-export ml-1"></i>
+                        التصدير إلى "جداول بيانات Google"
+                    </p>
+                </div>
+
+                <!-- نشاط 1-1-1 التعريف بالقيادة -->
+                <div class="activity-card">
+                    <h4 class="text-xl font-bold text-blue-600 mb-3">
+                        <i class="fas fa-users ml-1"></i>
+                        نشاط 1-1-1: استنتاج مفهوم القيادة
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-white p-3 rounded-lg">
+                            <p class="font-semibold text-blue-700">
+                                <i class="fas fa-cogs ml-1"></i>
+                                أسلوب التنفيذ:
+                            </p>
+                            <p>جماعي</p>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg">
+                            <p class="font-semibold text-blue-700">
+                                <i class="fas fa-bullseye ml-1"></i>
+                                هدف النشاط:
+                            </p>
+                            <p>استنتاج مفهوم القيادة</p>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg">
+                            <p class="font-semibold text-blue-700">
+                                <i class="fas fa-hourglass-half ml-1"></i>
+                                الزمن:
+                            </p>
+                            <p>20 دقيقة</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="activity-card">
+                    <h4 class="text-xl font-bold text-blue-600 mb-3">
+                        <i class="fas fa-tasks ml-1"></i>
+                        نشاط 1-1-1 (تفاصيل التنفيذ)
+                    </h4>
+                    <div class="space-y-3">
+                        <div class="timeline-item">
+                            <p>يطلب منهم صياغة جملة واحدة تمثل رؤيتهم لحياتهم بعد عامين. (مثال: "قائد مالي لأسرتي ومالك لورشة عمل ناجحة").</p>
+                        </div>
+                        <div class="timeline-item">
+                            <p>ثم يطلب منهم اختيار 3 قيم ستكون بمثابة القواعد التي لن يتنازلوا عنها أبداً في حياتهم الجديدة (مثل: النزاهة، المسؤولية الأسرية، الإتقان في العمل).</p>
+                        </div>
+                        <div class="timeline-item">
+                            <p>ثم يطلب من 3-4 مشاركين (متطوعين) عرض خارطتهم أمام المجموعة والتركيز على:</p>
+                            <ul class="list-disc list-inside pr-5 text-gray-600 mt-2">
+                                <li>نقطة قوة واحدة اكتشفوها حديثاً.</li>
+                                <li>كيف ستساعدهم هذه القوة في تحقيق رؤيتهم.</li>
+                                <li>ما هي القيمة التي ستقود قراراتهم اليومية.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- مفهوم القيادة -->
+                <div class="mt-8">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <div class="icon-circle ml-3">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        مفهوم القيادة
+                    </h3>
+                    <div class="bg-blue-50 p-4 rounded-lg mb-3">
+                        <p class="text-gray-600 mb-3">
+                            <strong class="text-blue-600">
+                                <i class="fas fa-user-cog ml-1"></i>
+                                القيادة الذاتية
+                            </strong> هي القدرة على التأثير في الأفكار والمشاعر والسلوكيات الخاصة بك للوصول إلى الأهداف التي تحددها لنفسك.
+                        </p>
+                        <p class="text-gray-600 mb-3">هي في جوهرها أن تكون المدير التنفيذي لحياتك، بدلاً من أن تكون مجرد موظف أو تابع للظروف الخارجية.</p>
+                        <p class="gray-600 mb-3">بالنسبة لك كشخص يخطو نحو بداية جديدة، فإن القيادة الذاتية هي المفتاح للانتقال من مرحلة الاعتماد إلى الاستقلال والسيطرة الإيجابية.</p>
+                    </div>
+
+                    <h4 class="text-lg font-bold text-gray-700 mt-4 mb-2">
+                        <i class="fas fa-user-tie text-blue-500 ml-1"></i>
+                        القيادة الشخصية
+                    </h4>
+                    <p class="text-gray-600 mb-3">هي قدرة الفرد على توجيه ذاته بوعي مُسبق نحو غاية وقيم يختارها، عبر منظومة من المهارات تشمل:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="feature-box">
+                            <p class="font-semibold text-blue-700">
+                                <i class="fas fa-brain ml-1"></i>
+                                الوعي الذاتي
+                            </p>
+                        </div>
+                        <div class="feature-box">
+                            <p class="font-semibold text-blue-700">
+                                <i class="fas fa-tasks ml-1"></i>
+                                التنظيم الذاتي
+                            </p>
+                        </div>
+                        <div class="feature-box">
+                            <p class="font-semibold text-blue-700">
+                                <i class="fas fa-rocket ml-1"></i>
+                                الدافعية الذاتية
+                            </p>
+                        </div>
+                        <div class="feature-box">
+                            <p class="font-semibold text-blue-700">
+                                <i class="fas fa-compass ml-1"></i>
+                                التوجيه الذاتي
+                            </p>
+                        </div>
+                        <div class="feature-box">
+                            <p class="font-semibold text-blue-700">
+                                <i class="fas fa-heart ml-1"></i>
+                                التعاطف مع الذات
+                            </p>
+                        </div>
+                    </div>
+                    <div class="space-y-2 mt-4 text-sm bg-gray-100 p-4 rounded-lg">
+                        <p>
+                            <strong class="text-blue-600">
+                                <i class="fas fa-brain ml-1"></i>
+                                الوعي الذاتي:
+                            </strong> ملاحظة الأنماط الداخلية (الأفكار/المشاعر/الدوافع) دون أحكام متعجلة.
+                        </p>
+                        <p>
+                            <strong class="text-blue-600">
+                                <i class="fas fa-tasks ml-1"></i>
+                                التنظيم الذاتي:
+                            </strong> إدارة الانفعالات والعادات والوقت بما يخدم المقاصد لا المزاج.
+                        </p>
+                        <p>
+                            <strong class="text-blue-600">
+                                <i class="fas fa-rocket ml-1"></i>
+                                الدافعية الذاتية:
+                            </strong> استثارة الطاقة الداخلية عبر معنى واضح وقياسات تقدّم مرئية.
+                        </p>
+                        <p>
+                            <strong class="text-blue-600">
+                                <i class="fas fa-compass ml-1"></i>
+                                التوجيه الذاتي:
+                            </strong> اتخاذ قرارات منسجمة مع القيم، وترجمة الرؤية إلى سلوك يومي.
+                        </p>
+                        <p>
+                            <strong class="text-blue-600">
+                                <i class="fas fa-heart ml-1"></i>
+                                التعاطف مع الذات:
+                            </strong> تصحيح الأخطاء بلا جلدٍ للنفس؛ تعلمٌ متكرر وتراكمٌ هادئ.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- خصائص القيادة الفعالة -->
+                <div class="mt-8">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <div class="icon-circle ml-3">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        خصائص القيادة الفعالة
+                    </h3>
+                    <p class="text-gray-600 mb-3">
+                        <i class="fas fa-layer-group text-blue-500 ml-1"></i>
+                        تقسيم خصائص القائد الناجح إلى فئات سلوكية، وعاطفية، وفكرية:
+                    </p>
+
+                    <!-- الخصائص السلوكية -->
+                    <div class="bg-blue-100 p-4 rounded-lg mb-4 feature-box">
+                        <h4 class="text-lg font-bold text-blue-800 mb-2">
+                            <i class="fas fa-handshake ml-1"></i>
+                            الخصائص السلوكية (التعامل والتوجيه)
+                        </h4>
+                        <div class="space-y-3">
+                            <div class="bg-white p-3 rounded-lg">
+                                <p class="font-semibold text-blue-700">
+                                    <i class="fas fa-gavel ml-1"></i>
+                                    القدرة على اتخاذ القرار (Decision-Making):
+                                </p>
+                                <p class="text-gray-600">القائد لا يتردد. يجمع المعلومات، يحلل الموقف بسرعة، ويتخذ قرارات واضحة وحاسمة، حتى في ظل الغموض أو الضغط.</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg">
+                                <p class="font-semibold text-blue-700">
+                                    <i class="fas fa-users-cog ml-1"></i>
+                                    التفويض الفعال (Effective Delegation):
+                                </p>
+                                <p class="text-gray-600">يثق القائد في قدرات فريقه ويوزع المهام على الأشخاص المناسبين، مما يُمكّن الفريق ويُحرر وقته للتركيز على الرؤية والاستراتيجية الكبرى.</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg">
+                                <p class="font-semibold text-blue-700">
+                                    <i class="fas fa-sync-alt ml-1"></i>
+                                    المرونة والتكيف (Flexibility and Adaptability):
+                                </p>
+                                <p class="text-gray-600">القدرة على تغيير الخطط والاستراتيجيات بسرعة استجابةً للظروف الجديدة أو التحديات غير المتوقعة في البيئة الخارجية.</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg">
+                                <p class="font-semibold text-blue-700">
+                                    <i class="fas fa-comments ml-1"></i>
+                                    التواصل الواضح والمُلهم (Clear Communication):
+                                </p>
+                                <p class="text-gray-600">لا يكتفي القائد بنقل المعلومات، بل ينقل الرؤية والأهداف بشكل مُلهم وواضح، مما يضمن فهم الفريق للغرض من عملهم.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- الخصائص العاطفية -->
+                    <div class="bg-blue-100 p-4 rounded-lg mb-4 feature-box">
+                        <h4 class="text-lg font-bold text-blue-800 mb-2">
+                            <i class="fas fa-heart ml-1"></i>
+                            الخصائص العاطفية والشخصية (الذكاء العاطفي)
+                        </h4>
+                        <div class="space-y-3">
+                            <div class="bg-white p-3 rounded-lg">
+                                <p class="font-semibold text-blue-700">
+                                    <i class="fas fa-shield-alt ml-1"></i>
+                                    النزاهة والمصداقية (Integrity and Trustworthiness):
+                                </p>
+                                <p class="text-gray-600">القائد هو قدوة. يجب أن تكون أفعاله متطابقة مع أقواله، فهذه النزاهة هي الأساس الصلب لبناء الثقة مع الفريق والجمهور.</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg">
+                                <p class="font-semibold text-blue-700">
+                                    <i class="fas fa-hands-helping ml-1"></i>
+                                    التعاطف (Empathy):
+                                </p>
+                                <p class="text-gray-600">القدرة على فهم مشاعر ودوافع واحتياجات أعضاء الفريق والتعامل معهم كأفراد، مما يخلق بيئة عمل داعمة ومُحفزة.</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg">
+                                <p class="font-semibold text-blue-700">
+                                    <i class="fas fa-fist-raised ml-1"></i>
+                                    الشجاعة والجرأة (Courage):
+                                </p>
+                                <p class="text-gray-600">الاستعداد لتحمل المخاطر المحسوبة، والوقوف في وجه الصعاب، والدفاع عن الفريق أو المبادئ، حتى عندما يكون القرار غير شعبي.</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg">
+                                <p class="font-semibold text-blue-700">
+                                    <i class="fas fa-mountain ml-1"></i>
+                                    الهدوء تحت الضغط:
+                                </p>
+                                <p class="text-gray-600">الحفاظ على رباطة الجأش والاحترافية عند مواجهة الأزمات أو الخلافات، مما يمنح الفريق شعوراً بالاستقرار.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- الخصائص الفكرية والرؤيوية -->
+                    <div class="bg-blue-100 p-4 rounded-lg feature-box">
+                        <h4 class="text-lg font-bold text-blue-800 mb-2">
+                            <i class="fas fa-brain ml-1"></i>
+                            الخصائص الفكرية والرؤيوية (الرؤية والتفكير)
+                        </h4>
+                        <div class="space-y-3">
+                            <div class="bg-white p-3 rounded-lg">
+                                <p class="font-semibold text-blue-700">
+                                    <i class="fas fa-eye ml-1"></i>
+                                    الرؤية (Vision):
+                                </p>
+                                <p class="text-gray-600">القدرة على رؤية صورة المستقبل التي لم تتحقق بعد، وتحديد الاتجاه العام الذي يجب أن تسير فيه المنظمة. القائد لا يدير الحاضر فقط، بل يصمم المستقبل.</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg">
+                                <p class="font-semibold text-blue-700">
+                                    <i class="fas fa-chess ml-1"></i>
+                                    التفكير الاستراتيجي (Strategic Thinking):
+                                </p>
+                                <p class="text-gray-600">تحليل الصورة الكبيرة، وربط الأهداف قصيرة المدى بالنتائج طويلة المدى، وتوقع التحديات المحتملة.</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg">
+                                <p class="font-semibold text-blue-700">
+                                    <i class="fas fa-book-reader ml-1"></i>
+                                    التعلم المستمر (Continuous Learning):
+                                </p>
+                                <p class="text-gray-600">السعي الدائم لاكتساب المعرفة، وتقبل النقد البناء، والاعتراف بالأخطاء لغرض التطوير والتحسين المستمر.</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg">
+                                <p class="font-semibold text-blue-700">
+                                    <i class="fas fa-user-friends ml-1"></i>
+                                    التركيز على التمكين (Focus on Empowerment):
+                                </p>
+                                <p class="text-gray-600">أفضل القادة هم من يخلقون المزيد من القادة. القائد الفعال يركز على تطوير مهارات فريقه وإعطائهم الفرصة للنمو والقيادة.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- أهمية القيادة الفعالة -->
+                <div class="mt-8">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <div class="icon-circle ml-3">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        أهمية القيادة الفعالة
+                    </h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-blue-50 p-4 rounded-lg feature-box">
+                            <h4 class="text-lg font-bold text-blue-600 mb-2">
+                                <i class="fas fa-user-shield ml-1"></i>
+                                القيادة الذاتية
+                            </h4>
+                            <p class="text-sm text-gray-600 mb-2">منع العودة وبناء الاستقرار</p>
+                            <ul class="list-disc list-inside pr-5 text-gray-600 text-xs space-y-1">
+                                <li>منع الانتكاسة</li>
+                                <li>إعادة بناء الهوية</li>
+                                <li>إدارة الضغوط</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg feature-box">
+                            <h4 class="text-lg font-bold text-blue-600 mb-2">
+                                <i class="fas fa-home ml-1"></i>
+                                القيادة الأسرية
+                            </h4>
+                            <p class="text-sm text-gray-600 mb-2">استعادة الثقة وترميم العلاقات</p>
+                            <ul class="list-disc list-inside pr-5 text-gray-600 text-xs space-y-1">
+                                <li>إعادة بناء الثقة</li>
+                                <li>توجيه الأسرة نحو الأمان</li>
+                                <li>القدوة الإيجابية للأبناء</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg feature-box">
+                            <h4 class="text-lg font-bold text-blue-600 mb-2">
+                                <i class="fas fa-briefcase ml-1"></i>
+                                القيادة المهنية
+                            </h4>
+                            <p class="text-sm text-gray-600 mb-2">تحقيق الاستدامة</p>
+                            <ul class="list-disc list-inside pr-5 text-gray-600 text-xs space-y-1">
+                                <li>التمكين الاقتصادي</li>
+                                <li>الاندماج المجتمعي</li>
+                                <li>النجاح كرسالة</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- أسس القيادة الفعالة -->
+                <div class="mt-8">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <div class="icon-circle ml-3">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        أسس القيادة الفعالة
+                    </h3>
+
+                    <p class="text-gray-600 mb-3">القائد الفعال يقود بسلوكه قبل كلماته. بالنسبة لكم، النزاهة هي بوابتكم للثقة.</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-blue-50 p-4 rounded-lg feature-box">
+                            <h4 class="font-bold text-blue-700 mb-2">
+                                <i class="fas fa-shield-alt ml-1"></i>
+                                النزاهة والمصداقية
+                            </h4>
+                            <p class="text-gray-700 text-sm">القائد الفعال يقود بسلوكه قبل كلماته. بالنسبة لكم، النزاهة هي بوابتكم للثقة.</p>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg feature-box">
+                            <h4 class="font-bold text-blue-700 mb-2">
+                                <i class="fas fa-eye ml-1"></i>
+                                الرؤية والإلهام
+                            </h4>
+                            <p class="text-gray-700 text-sm">القائد يمتلك القدرة على رؤية الغد المشرق ونقل هذه الطاقة للآخرين.</p>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg feature-box">
+                            <h4 class="font-bold text-blue-700 mb-2">
+                                <i class="fas fa-users-cog ml-1"></i>
+                                التمكين وبناء الثقة
+                            </h4>
+                            <p class="text-gray-700 text-sm">القائد الحقيقي يرفع من شأن من حوله، ولا يحتكر السلطة.</p>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg feature-box">
+                            <h4 class="font-bold text-blue-700 mb-2">
+                                <i class="fas fa-puzzle-piece ml-1"></i>
+                                حل المشكلات واتخاذ القرار
+                            </h4>
+                            <p class="text-gray-700 text-sm">القيادة تُختبر في المواقف الصعبة.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- نشاط 2-1-1 -->
+                <div class="activity-card mt-8">
+                    <h4 class="text-xl font-bold text-blue-600 mb-3">
+                        <i class="fas fa-lightbulb ml-1"></i>
+                        نشاط 2-1-1: صياغة الرؤية المستقبلية
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-white p-3 rounded-lg">
+                            <p class="font-semibold text-blue-700">
+                                <i class="fas fa-cogs ml-1"></i>
+                                أسلوب التنفيذ:
+                            </p>
+                            <p>جماعي</p>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg">
+                            <p class="font-semibold text-blue-700">
+                                <i class="fas fa-bullseye ml-1"></i>
+                                هدف النشاط:
+                            </p>
+                            <p>صياغة الرؤية المستقبلية</p>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg">
+                            <p class="font-semibold text-blue-700">
+                                <i class="fas fa-hourglass-half ml-1"></i>
+                                الزمن:
+                            </p>
+                            <p>20 دقيقة</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- صياغة الرؤية والقيم الشخصية للمستقبل -->
+                <div class="mt-8">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <div class="icon-circle ml-3">
+                            <i class="fas fa-flag"></i>
+                        </div>
+                        صياغة الرؤية والقيم الشخصية للمستقبل
+                    </h3>
+                    <p class="text-gray-600 mb-3">إن تحديد الرؤية والقيم الشخصية هو أساس القيادة الذاتية، وهو بمثابة البوصلة التي توجه المفرج عنه وأسرته نحو مسار جديد ومستقر، بعيداً عن الانجراف</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="text-lg font-bold text-blue-600 mb-2">
+                                <i class="fas fa-eye ml-1"></i>
+                                صياغة الرؤية الشخصية
+                            </h4>
+                            <p class="text-gray-600 text-sm mb-2">الرؤية الشخصية هي الصورة الواضحة والمُلهمة لما تريد أن تكون عليه حياتك بعد 3 إلى 5 سنوات.</p>
+                            <div class="space-y-2 mt-3">
+                                <div class="bg-white p-3 rounded-lg">
+                                    <p class="font-semibold text-blue-700 text-sm">
+                                        <i class="fas fa-cloud ml-1"></i>
+                                        التخيل والتحرر
+                                    </p>
+                                    <p class="text-gray-600 text-xs">تخيل أفضل سيناريو لحياتك الجديدة في جميع الجوانب</p>
+                                </div>
+                                <div class="bg-white p-3 rounded-lg">
+                                    <p class="font-semibold text-blue-700 text-sm">
+                                        <i class="fas fa-quote-right ml-1"></i>
+                                        صياغة جملة ملهمة
+                                    </p>
+                                    <p class="text-gray-600 text-xs">يجب أن تكون الرؤية إيجابية، في زمن المضارع، وموجزة</p>
+                                </div>
+                                <div class="bg-white p-3 rounded-lg">
+                                    <p class="font-semibold text-blue-700 text-sm">
+                                        <i class="fas fa-link ml-1"></i>
+                                        ربط الرؤية بالأسرة
+                                    </p>
+                                    <p class="text-gray-600 text-xs">يجب أن تشمل الرؤية هدف التكافل الأسري</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="text-lg font-bold text-blue-600 mb-2">
+                                <i class="fas fa-balance-scale ml-1"></i>
+                                تحديد القيم الشخصية
+                            </h4>
+                            <p class="text-gray-600 text-sm mb-2">القيم الشخصية هي المبادئ الأساسية التي توجه سلوكياتنا اليومية.</p>
+                            <div class="space-y-2 mt-3">
+                                <div class="bg-white p-3 rounded-lg">
+                                    <p class="font-semibold text-blue-700 text-sm">
+                                        <i class="fas fa-list ml-1"></i>
+                                        قائمة الترشيح
+                                    </p>
+                                    <p class="text-gray-600 text-xs">اختيار 10 قيم ضرورية في حياتك الجديدة</p>
+                                </div>
+                                <div class="bg-white p-3 rounded-lg">
+                                    <p class="font-semibold text-blue-700 text-sm">
+                                        <i class="fas fa-filter ml-1"></i>
+                                        التصفية والاختيار
+                                    </p>
+                                    <p class="text-gray-600 text-xs">تقليص القائمة إلى أهم 3-5 قيم لا يمكن التنازل عنها</p>
+                                </div>
+                                <div class="bg-white p-3 rounded-lg">
+                                    <p class="font-semibold text-blue-700 text-sm">
+                                        <i class="fas fa-balance-scale ml-1"></i>
+                                        ربط القيمة بالقرار
+                                    </p>
+                                    <p class="text-gray-600 text-xs">القيمة كاختبار للقرارات اليومية</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- محتويات الجلسة التدريبية الثانية -->
+        <section id="session2" class="dashboard-card mb-6 fade-in">
+            <div class="card-header">
+                <h2 class="text-2xl font-bold flex items-center">
+                    <i class="fas fa-user-graduate ml-3"></i>
+                    الجلسة التدريبية الثانية
+                </h2>
+            </div>
+            <div class="p-6">
+                <p class="text-xl font-semibold text-blue-600 mb-4">
+                    <i class="fas fa-user-graduate ml-1"></i>
+                    المهارات الشخصية القيادية
+                </p>
+
+                <div class="mb-6">
+                    <h3 class="text-lg font-bold text-gray-700 mb-2">
+                        <i class="fas fa-bullseye text-blue-500 ml-1"></i>
+                        الأهداف الإجرائية للجلسة التدريبية:
+                    </h3>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <ul class="list-disc list-inside space-y-1 pr-5 text-gray-600">
+                            <li>يتعرف على كيف اكون شخص قيادي بحياتي؟</li>
+                            <li>يطبق المهارات الشخصية القيادية</li>
+                            <li>يوضح نشاطات يومية تساعد على القيادة</li>
+                            <li>يناقش تقنيات قيادة السمعة الشخصية (Personal Brand)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="text-lg font-bold text-gray-700 mb-2">
+                        <i class="fas fa-clipboard-check text-blue-500 ml-1"></i>
+                        متطلبات الجلسة:
+                    </h3>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <ul class="list-disc list-inside space-y-1 pr-5 text-gray-600">
+                            <li>أوراق عمل لتنفيذ النشاطات.</li>
+                            <li>أقلام للكتابة.</li>
+                            <li>سبورة ورقية وأقلام للكتابة عليها.</li>
+                            <li>جهاز عرض البيانات (Data Show).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="text-lg font-bold text-gray-700 mb-2">
+                        <i class="fas fa-chalkboard text-blue-500 ml-1"></i>
+                        جدول الأساليب والأنشطة والوسائل التدريبية:
+                    </h3>
+                    <div class="dashboard-table overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr>
+                                    <th>م</th>
+                                    <th>الأساليب والأنشطة التدريبية</th>
+                                    <th>الوسائل التدريبية</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>1</td><td>فيديو تدريبي</td><td>جهاز عرض فوق الرأس، فيديو</td></tr>
+                                <tr><td>2</td><td>نشاط (1/2/1)</td><td>أوراق، بطاقات ملونة</td></tr>
+                                <tr><td>3</td><td>المادة العلمية</td><td>جهاز عرض، بوربوينت</td></tr>
+                                <tr><td>4</td><td>نشاط (2/2/1)</td><td>أوراق، بطاقات ملونة، أقلام</td></tr>
+                                <tr><td>5</td><td>المادة العلمية</td><td>جهاز عرض، بوربوينت</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="mt-3 text-sm text-gray-500">
+                        <i class="fas fa-file-export ml-1"></i>
+                        التصدير إلى "جداول بيانات Google"
+                    </p>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="text-lg font-bold text-gray-700 mb-2">
+                        <i class="fas fa-clock text-blue-500 ml-1"></i>
+                        خطة الجلسة التدريبية الثانية:
+                    </h3>
+                    <div class="dashboard-table overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr>
+                                    <th>الموضوع / النشاط</th>
+                                    <th>الزمن بالدقيقة</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>فيديوتدريبي.</td><td>10 دقائق</td></tr>
+                                <tr><td>نشاط 1-2-1.</td><td>20 دقيقة</td></tr>
+                                <tr><td>كيف اكون شخص قيادي بحياتي؟</td><td>20 دقيقة</td></tr>
+                                <tr><td>المهارات الشخصية القيادية</td><td>25 دقيقة</td></tr>
+                                <tr><td>نشاطات يومية تساعد على القيادة</td><td>10 دقائق</td></tr>
+                                <tr><td>تقنيات قيادة السمعة الشخصية (Personal Brand)</td><td>20 دقيقة</td></tr>
+                                <tr><td>التواصل الحازم (Assertiveness)</td><td>25دقيقة</td></tr>
+                                <tr><td>نماذج قيادية ملهمة للنساء</td><td>20 دقيقة</td></tr>
+                                <tr><td>مجموع التوقيت الزمني</td><td>120دقيقة</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="mt-3 text-sm text-gray-500">
+                        <i class="fas fa-file-export ml-1"></i>
+                        التصدير إلى "جداول بيانات Google"
+                    </p>
+                </div>
+
+                <!-- نشاط 1-2-1 -->
+                <div class="activity-card">
+                    <h4 class="text-xl font-bold text-blue-600 mb-3">
+                        <i class="fas fa-users ml-1"></i>
+                        نشاط 1-2-1
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-white p-3 rounded-lg">
+                            <p class="font-semibold text-blue-700">
+                                <i class="fas fa-cogs ml-1"></i>
+                                أسلوب التنفيذ:
+                            </p>
+                            <p>جماعي</p>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg">
+                            <p class="font-semibold text-blue-700">
+                                <i class="fas fa-bullseye ml-1"></i>
+                                هدف النشاط:
+                            </p>
+                            <p>صياغة الرؤية المستقبلية</p>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg">
+                            <p class="font-semibold text-blue-700">
+                                <i class="fas fa-hourglass-half ml-1"></i>
+                                الزمن:
+                            </p>
+                            <p>20 دقيقة</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- كيف اكون شخص قيادي بحياتي؟ -->
+                <div class="mt-8">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <div class="icon-circle ml-3">
+                            <i class="fas fa-user-cog"></i>
+                        </div>
+                        كيف اكون شخص قيادي بحياتي؟
+                    </h3>
+                    <p class="text-gray-600 mb-3">تكون شخصًا قياديًا في حياتك كشخص خارج من السجن، يجب أن تركز على قيادة ذاتك وقراراتك أولًا، وأن تحوّل تجربتك السابقة إلى مصدر قوة والتزام. الأمر كله يتعلق بـ <strong class="text-blue-600">القيادة الذاتية (Self-Leadership)</strong>.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                        <div class="bg-blue-50 p-4 rounded-lg feature-box">
+                            <h4 class="font-bold text-blue-700 mb-2">
+                                <i class="fas fa-brain ml-1"></i>
+                                التحكم العقلي
+                            </h4>
+                            <ul class="list-disc list-inside pr-5 text-gray-600 text-sm space-y-1">
+                                <li>حوّل الحديث الذاتي السلبي</li>
+                                <li>ركز على ما يمكنك التحكم به</li>
+                                <li>صغ رؤيتك للمستقبل</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg feature-box">
+                            <h4 class="font-bold text-blue-700 mb-2">
+                                <i class="fas fa-tasks ml-1"></i>
+                                التخطيط والالتزام
+                            </h4>
+                            <ul class="list-disc list-inside pr-5 text-gray-600 text-sm space-y-1">
+                                <li>استخدم مهارة الانضباط المكتسبة</li>
+                                <li>قسم الأهداف إلى مهام صغيرة</li>
+                                <li>استخدم نظام المكافآت الذاتية</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg feature-box">
+                            <h4 class="font-bold text-blue-700 mb-2">
+                                <i class="fas fa-route ml-1"></i>
+                                إعادة بناء الثقة
+                            </h4>
+                            <ul class="list-disc list-inside pr-5 text-gray-600 text-sm space-y-1">
+                                <li>استثمر في مهاراتك المكتسبة</li>
+                                <li>أعد بناء الثقة بالشفافية</li>
+                                <li>ابحث عن شريك قيادي</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- المهارات الشخصية القيادية -->
+                <div class="mt-8">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <div class="icon-circle ml-3">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        المهارات الشخصية القيادية
+                    </h3>
+                    <p class="text-gray-600 mb-3">مجموعة من الصفات والسلوكيات التي تُمكّن الفرد من التأثير في الآخرين، وتحفيزهم، وتوجيههم نحو هدف مشترك.</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-blue-50 p-4 rounded-lg feature-box">
+                            <h4 class="font-bold text-blue-700 mb-2">
+                                <i class="fas fa-comments ml-1"></i>
+                                التواصل والتأثير
+                            </h4>
+                            <ul class="list-disc list-inside pr-5 text-gray-600 text-sm space-y-1">
+                                <li>التواصل الفعّال</li>
+                                <li>الاستماع النشط</li>
+                                <li>الإقناع والتأثير</li>
+                                <li>فن التغذية الراجعة</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg feature-box">
+                            <h4 class="font-bold text-blue-700 mb-2">
+                                <i class="fas fa-heart ml-1"></i>
+                                الذكاء العاطفي
+                            </h4>
+                            <ul class="list-disc list-inside pr-5 text-gray-600 text-sm space-y-1">
+                                <li>النزاهة والمصداقية</li>
+                                <li>التعاطف</li>
+                                <li>المرونة والتكيف</li>
+                                <li>الوعي الذاتي</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg feature-box">
+                            <h4 class="font-bold text-blue-700 mb-2">
+                                <i class="fas fa-chess ml-1"></i>
+                                التخطيط وصنع القرار
+                            </h4>
+                            <ul class="list-disc list-inside pr-5 text-gray-600 text-sm space-y-1">
+                                <li>التفكير الاستراتيجي</li>
+                                <li>صنع القرار الحاسم</li>
+                                <li>حل المشكلات</li>
+                                <li>بناء الفريق والتمكين</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- نشاطات يومية تساعد على القيادة -->
+                <div class="mt-8">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <div class="icon-circle ml-3">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        نشاطات يومية تساعد على القيادة
+                    </h3>
+                    <div class="dashboard-table overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr>
+                                    <th>النشاط القيادي</th>
+                                    <th>الآلية الإجرائية</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <strong>
+                                            <i class="fas fa-compass ml-1"></i>
+                                            بوصلة دقيقة (3 دقائق صباحًا)
+                                        </strong>
+                                    </td>
+                                    <td>سؤالان: لماذا اليوم مهم؟ / ما نتيجة واحدة ملموسة؟</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>
+                                            <i class="fas fa-sort-numeric-down ml-1"></i>
+                                            أولويّات 1–3–5
+                                        </strong>
+                                    </td>
+                                    <td>1 نتيجة حاسمة. 3 مهام داعمة. 5 دقائق لمراجعة الخطة</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>
+                                            <i class="fas fa-hourglass-half ml-1"></i>
+                                            قاعدة 25/5 للتركيز
+                                        </strong>
+                                    </td>
+                                    <td>25 دقيقة عمل مركّز، 5 دقائق استراحة نشطة</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>
+                                            <i class="fas fa-user-cog ml-1"></i>
+                                            تفويض الذات
+                                        </strong>
+                                    </td>
+                                    <td>لكل مهمة: هدف واضح + معيار جودة + زمن إنجاز</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>
+                                            <i class="fas fa-comments ml-1"></i>
+                                            تواصل قيادي مصغّر
+                                        </strong>
+                                    </td>
+                                    <td>رسالة حالة 3 أسطر: ماذا أعمل؟ ما العائق؟ ما القرار التالي؟</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>
+                                            <i class="fas fa-battery-full ml-1"></i>
+                                            إدارة الطاقة قبل الوقت
+                                        </strong>
+                                    </td>
+                                    <td>تتبّع مكبر/مستنزف الطاقة يوميًا</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>
+                                            <i class="fas fa-tasks ml-1"></i>
+                                            اتخاذ قرار سريع (2×2)
+                                        </strong>
+                                    </td>
+                                    <td>أثر × استعجال: عالٍ/عالٍ → الآن</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>
+                                            <i class="fas fa-book-reader ml-1"></i>
+                                            تعلّم 1% يوميًا
+                                        </strong>
+                                    </td>
+                                    <td>15 دقيقة قراءة/مشاهدة مع تدوين فكرة + تطبيق</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>
+                                            <i class="fas fa-random ml-1"></i>
+                                            مرونة بذكاء (B/C Plans)
+                                        </strong>
+                                    </td>
+                                    <td>اكتب بديلين مسبقًا لكل هدف</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="mt-3 text-sm text-gray-500">
+                        <i class="fas fa-file-export ml-1"></i>
+                        التصدير إلى "جداول بيانات Google"
+                    </p>
+                </div>
+
+                <!-- تقنيات قيادة السمعة الشخصية (Personal Brand) -->
+                <div class="mt-8">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <div class="icon-circle ml-3">
+                            <i class="fas fa-id-badge"></i>
+                        </div>
+                        تقنيات قيادة السمعة الشخصية
+                    </h3>
+                    <p class="text-gray-600 mb-3">السمعة الشخصية هي انطباع الآخرين عنك. كقائد في حياتك الجديدة، يجب أن تتولى إدارة هذا الانطباع وتحويل الماضي إلى شهادة قوة لا عائق.</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-blue-50 p-4 rounded-lg feature-box">
+                            <h4 class="font-bold text-blue-700 mb-2">
+                                <i class="fas fa-sync-alt ml-1"></i>
+                                صياغة قصة التحول
+                            </h4>
+                            <ul class="list-disc list-inside pr-5 text-gray-600 text-sm space-y-1">
+                                <li>الاعتراف بالمسؤولية</li>
+                                <li>التركيز على المهارات المكتسبة</li>
+                                <li>إبراز القيمة المضافة</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg feature-box">
+                            <h4 class="font-bold text-blue-700 mb-2">
+                                <i class="fas fa-user-tie ml-1"></i>
+                                القيادة عبر المظهر والسلوك
+                            </h4>
+                            <ul class="list-disc list-inside pr-5 text-gray-600 text-sm space-y-1">
+                                <li>الاتساق والثبات</li>
+                                <li>الاحترافية في المظهر</li>
+                                <li>بناء شبكة داعمة</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- التواصل الحازم (Assertiveness) -->
+                <div class="mt-8">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <div class="icon-circle ml-3">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        التواصل الحازم (Assertiveness)
+                    </h3>
+                    <p class="text-gray-600 mb-3">التواصل الحازم هو القدرة على التعبير عن احتياجاتك وآرائك بوضوح، واحترام، وبدون عدوانية.</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-blue-50 p-4 rounded-lg feature-box">
+                            <h4 class="font-bold text-blue-700 mb-2">
+                                <i class="fas fa-shield-alt ml-1"></i>
+                                تقنيات الرد على الأحكام المسبقة
+                            </h4>
+                            <ul class="list-disc list-inside pr-5 text-gray-600 text-sm space-y-1">
+                                <li>تقنية "التأكيد والتحويل"</li>
+                                <li>تقنية "الحدود الواضحة"</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg feature-box">
+                            <h4 class="font-bold text-blue-700 mb-2">
+                                <i class="fas fa-calendar-day ml-1"></i>
+                                ممارسة التواصل الحازم اليومي
+                            </h4>
+                            <ul class="list-disc list-inside pr-5 text-gray-600 text-sm space-y-1">
+                                <li>استخدم عبارات "أنا"</li>
+                                <li>لغة الجسد الواثقة</li>
+                                <li>تعلّم قول "لا" بكرامة</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- نماذج قيادية ملهمة للنساء -->
+                <div class="mt-8">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <div class="icon-circle ml-3">
+                            <i class="fas fa-female"></i>
+                        </div>
+                        نماذج قيادية ملهمة للنساء
+                    </h3>
+                    <p class="text-gray-600 mb-3">تركز هذه النماذج على التحول والتمكين، وكيف قادت النساء حياتهن نحو الاستقرار:</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-blue-50 p-4 rounded-lg feature-box">
+                            <h4 class="font-bold text-blue-700 mb-2">
+                                <i class="fas fa-briefcase ml-1"></i>
+                                القيادة عبر المهارة
+                            </h4>
+                            <p class="text-sm text-gray-600 mb-2">ريادة الأعمال الحرفية</p>
+                            <ul class="list-disc list-inside pr-5 text-gray-600 text-xs space-y-1">
+                                <li>تحويل المهارة إلى عمل</li>
+                                <li>الاستقلال المالي</li>
+                                <li>قصة النجاح</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg feature-box">
+                            <h4 class="font-bold text-blue-700 mb-2">
+                                <i class="fas fa-home ml-1"></i>
+                                القيادة في بناء الثقة
+                            </h4>
+                            <p class="text-sm text-gray-600 mb-2">القائدة الأسرية</p>
+                            <ul class="list-disc list-inside pr-5 text-gray-600 text-xs space-y-1">
+                                <li>القيادة عبر النزاهة</li>
+                                <li>بناء الروابط</li>
+                                <li>القيادة الأسرية</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg feature-box">
+                            <h4 class="font-bold text-blue-700 mb-2">
+                                <i class="fas fa-graduation-cap ml-1"></i>
+                                القيادة من خلال التعليم
+                            </h4>
+                            <p class="text-sm text-gray-600 mb-2">التعليم والمبادرة</p>
+                            <ul class="list-disc list-inside pr-5 text-gray-600 text-xs space-y-1">
+                                <li>استغلال التدريب</li>
+                                <li>التحول إلى مرشدة</li>
+                                <li>القيادة التحويلية</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="bg-blue-100 p-4 rounded-lg mt-4 border-r-4 border-blue-500">
+                        <p class="text-gray-700 font-semibold">
+                            <i class="fas fa-quote-right text-blue-500 ml-2"></i>
+                            تثبت هذه التجارب أن القيادة ليست منصباً، بل هي قرار. القرار بأن تكون مسؤولاً عن حياتك، وأن تستخدم مهاراتك المكتسبة كأدوات لبناء مستقبل أفضل لك ولأسرتك.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer class="text-center mt-8 py-6 border-t border-blue-200">
+            <p class="text-sm text-gray-500">
+                <i class="fas fa-check-circle text-blue-500 ml-1"></i>
+                تم الانتهاء من محتوى أسس القيادة.
+            </p>
+            <p class="text-xs text-gray-400 mt-2">
+                <i class="fas fa-copyright ml-1"></i>
+                جميع الحقوق محفوظة - 2023
+            </p>
+        </footer>
+    </main>
+    
+    <script>
+        // Sidebar toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const sidebar = document.getElementById('sidebar');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+            
+            // Toggle sidebar
+            sidebarToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('active');
+                sidebarOverlay.classList.toggle('active');
+            });
+            
+            // Close sidebar when clicking on overlay
+            sidebarOverlay.addEventListener('click', function() {
+                sidebar.classList.remove('active');
+                sidebarOverlay.classList.remove('active');
+            });
+            
+            // Close sidebar when clicking on a link (for mobile)
+            const sidebarLinks = document.querySelectorAll('.sidebar-item');
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 768) {
+                        sidebar.classList.remove('active');
+                        sidebarOverlay.classList.remove('active');
+                    }
+                });
+            });
+            
+            // Active link highlighting
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.sidebar-item');
+            
+            // Function to set the active link
+            const setActiveLink = () => {
+                let current = '';
+                const scrollTop = window.pageYOffset;
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    // Adjust this value (e.g., 300) to control when the link becomes active while scrolling
+                    if (scrollTop >= (sectionTop - 300)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href')?.slice(1) === current) {
+                        link.classList.add('active');
+                    }
+                });
+                
+                // Special case for the very top of the page (Introduction)
+                if (scrollTop < sections[0].offsetTop - 300) {
+                     document.querySelector('a[href="#introduction"]')?.classList.add('active');
+                }
+            };
+
+            // Initial call and attach event listeners
+            setActiveLink(); // Highlight the first section on load
+            window.addEventListener('scroll', setActiveLink);
+            
+            // Ensure first link is active if not scrolled (or if there are issues with initial scroll positioning)
+            if (window.pageYOffset === 0) {
+                 document.querySelector('a[href="#introduction"]')?.classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>
